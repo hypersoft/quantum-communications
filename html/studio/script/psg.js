@@ -6,7 +6,7 @@ var PSG = {
     conjunctionTerm: ["AND", "OR", "&:", "AND:", "OR:"],
     positionTerm: [],
     lodialTerm: ["A", "AN", "EACH", "EVERY", "THE", "THIS", "THESE", "THOSE", "THEIR", "HIS", "HER", "MY", "YOUR", "OUR"],
-    thinkingTerm: ["IS", "ARE", "IS:", "ARE:"],
+    thinkingTerm: ["IS", "ARE"],
     positionCatalog: {},
     createPosition: function(a, b){
         PSG.positionCatalog[a] = b || a;
