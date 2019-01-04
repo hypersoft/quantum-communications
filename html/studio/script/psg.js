@@ -5,7 +5,7 @@ var PSG = {
     grammarTerm: ["CONJUNCTION", "ADVERB", "VERB", "ADJECTIVE", "PRONOUN", "POSITON", "LODIAL", "FACT", "PAST-TIME-FICTION", "FUTURE-TIME-FICTION"],
     conjunctionTerm: ["AND", "OR", "&:", "AND:", "OR:"],
     positionTerm: [],
-    lodialTerm: ["A", "AN", "THE", "THIS", "THESE", "THOSE", "THEIR", "HIS", "HER", "MY", "YOUR", "OUR"],
+    lodialTerm: ["A", "AN", "EACH", "EVERY", "THE", "THIS", "THESE", "THOSE", "THEIR", "HIS", "HER", "MY", "YOUR", "OUR"],
     thinkingTerm: ["IS", "ARE", "IS:", "ARE:"],
     positionCatalog: {},
     createPosition: function(a, b){
@@ -22,7 +22,7 @@ PSG.createPosition("FOR", "BY");
 PSG.createPosition("WITH", "OF");
 
 // these words don't have backward analogs which make sense.
-// by, for of and with should be sufficient for checking the work;
+// by, for, of and with should be sufficient for checking the work;
 // otherwise we'd need an extensive word catalog of analogs for fact-words;
 // and that might not even work... not all words have analogs;
 // on the 4th-day is not off the 4th-day... etc
