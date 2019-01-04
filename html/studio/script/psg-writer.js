@@ -171,6 +171,14 @@ PhraseTable.prototype = {
         row.controls = [PhraseTableVerbSelector()];
         cell = document.createElement('td');
         cell.appendChild(row.controls[0]);
+
+        row.controls[0].onkeypress = function(event) {
+            if (event.keyCode == 13 || event.which == 13){
+                if (event.shiftKey) controller.addVerb(row);
+                else controller.addPhrase(row);
+            }
+        }
+
         cell.colSpan = 4;
         row.appendChild(cell);
         if (after) {
