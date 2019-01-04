@@ -116,7 +116,8 @@ PhraseTable.prototype = {
 
         control.onkeypress = function(event) {
             if (event.keyCode == 13 || event.which == 13){
-                controller.addPhrase();
+                if (event.shiftKey) controller.addVerb();
+                else controller.addPhrase();
             }
         }
 
@@ -169,6 +170,7 @@ PhraseTable.prototype = {
         cell.appendChild(row.controls[0]);
         cell.colSpan = 4;
         row.appendChild(cell);
+        row.controls[0].focus();
 
         var controlClass = 'phrase-table-row-control w3-round w3-btn w3-black'
 
