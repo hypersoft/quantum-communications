@@ -13,63 +13,17 @@
 
     <script src="script/jquery.min.js"></script>
     <script src="script/psg.js"></script>
+    <script src="script/psg-writer.js"></script>
 
+    <script>
+        function bodyLoaded() {
+            document.body.appendChild(new PhraseTable('phraseTable').element);
+        }
+    </script>
 </HEAD>
 
-<BODY class="w3-dark-gray">
-    <form id='matrixData'>
-        <DIV CLASS="w3-panel">
-            <table style="width:100%">
-                <tbody>
-                    <tr>
-                        <td>
-                            <select class="w3-light-gray">
-                                <option>first</option>
-                                <option>second</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="w3-light-gray">
-                                <option>first</option>
-                                <option>second</option>
-                            </select>
+<BODY class="w3-dark-gray" onload='bodyLoaded()'>
 
-                        </td>
-                        <td style="width: 100%">
-                            <input style="width:100%" class="w3-light-gray" type=text id="elementTest">
-                        </td>
-                        <td style="white-space: nowrap">
-                            <div class="w3-round w3-btn w3-black "><i class="material-icons w3-small">clear</i></div>
-                            <div class="w3-round w3-btn w3-black "><i class="material-icons w3-small">expand_less</i></div>
-                            <div class="w3-round w3-btn w3-black "><i class="material-icons w3-small">expand_more</i></div>
-
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-
-
-
-        </DIV>
-        <div class="w3-container">
-                            <div class="w3-round w3-btn w3-black">
-                <i class="material-icons">add</i>
-            </div>
-            <div class="w3-round w3-btn w3-black w3-disabled">
-                <i class="material-icons">play_arrow</i>
-            </div>
-            <div class="w3-round w3-btn w3-black w3-disabled">
-                    <i class="material-icons">delete_forever</i>
-                </div>
-        <div class="w3-round w3-btn w3-black w3-disabled">
-                    <i class="material-icons">cached</i>
-                </div>
-                <div class="w3-round w3-btn w3-black w3-disabled">
-                        <i class="material-icons">record_voice_over</i>
-                    </div>
-                    </div>
-    </form>
 </BODY>
 
 </HTML>
