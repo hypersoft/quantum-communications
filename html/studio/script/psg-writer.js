@@ -92,7 +92,7 @@ PhraseTable.prototype = {
         this.addPhrase();
     },
 
-    addPhrase: function() {
+    addPhrase: function(after) {
 
         var row, cell, button, control, controller = this;
 
@@ -102,6 +102,9 @@ PhraseTable.prototype = {
         cell = document.createElement('td');
         cell.appendChild(control);
         row.appendChild(cell);
+        if (after) {
+            after.parentNode.insertBefore(row, after.nextSibling);
+        }
         control.focus();
 
         row.controls.push(control = PhraseTableLodialSelector());
@@ -116,8 +119,8 @@ PhraseTable.prototype = {
 
         control.onkeypress = function(event) {
             if (event.keyCode == 13 || event.which == 13){
-                if (event.shiftKey) controller.addVerb();
-                else controller.addPhrase();
+                if (event.shiftKey) controller.addVerb(row);
+                else controller.addPhrase(row);
             }
         }
 
@@ -160,7 +163,7 @@ PhraseTable.prototype = {
 
     },
 
-    addVerb: function() {
+    addVerb: function(after) {
 
         var row, cell, controller = this;
 
@@ -170,6 +173,9 @@ PhraseTable.prototype = {
         cell.appendChild(row.controls[0]);
         cell.colSpan = 4;
         row.appendChild(cell);
+        if (after) {
+            after.parentNode.insertBefore(row, after.nextSibling);
+        }
         row.controls[0].focus();
 
         var controlClass = 'phrase-table-row-control w3-round w3-btn w3-black'
