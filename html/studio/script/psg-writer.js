@@ -268,7 +268,7 @@ function PhraseTableVerbSelector() {
 
 function PhraseTableLodialSelector() {
     var sel = document.createElement('select')
-    sel.typeClaim = 5
+    sel.typeClaim = 6
     sel.className = 'phrase-lodial-selector';
     for (var i = 0; i < PSG.lodialTerm.length; i++) {
         var opt = document.createElement('option');
