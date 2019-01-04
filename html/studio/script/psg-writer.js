@@ -62,12 +62,12 @@ function PhraseTable(id) {
         controller.addVerb();
     }));
 
-    footerRowCell.appendChild(PhraseTableButtonControl('PhraseTableCompileClaim', 'chevron_right', 'view-claim-forwards', function(event){
-        controller.getForwardSyntax();
+    footerRowCell.appendChild(PhraseTableButtonControl('PhraseTableCompileClaimBackwards', 'chevron_left', 'view-claim-backwards', function(event){
+        controller.getBackwardSyntax();
     }));
 
-    footerRowCell.appendChild(PhraseTableButtonControl('PhraseTableCompileClaim2', 'chevron_left', 'view-claim-backwards', function(event){
-        controller.getBackwardSyntax();
+    footerRowCell.appendChild(PhraseTableButtonControl('PhraseTableCompileClaimForwards', 'chevron_right', 'view-claim-forwards', function(event){
+        controller.getForwardSyntax();
     }));
 
     footerRow = document.createElement('tr');
@@ -138,7 +138,7 @@ PhraseTable.prototype = {
         button.className = controlClass;
         cell.appendChild(button);
 
-        button = PhraseTableButtonControl('PhraseTableRowMoveUp', 'arrow_drop_up', 'move-up', function(event){
+        button = PhraseTableButtonControl('PhraseTableRowMoveUp', 'expand_less', 'move-up', function(event){
             var it = row;
             var prev = row.previousSibling;
             if (! prev ) return;
@@ -150,7 +150,7 @@ PhraseTable.prototype = {
         button.className = controlClass;
         cell.appendChild(button);
 
-        button = PhraseTableButtonControl('PhraseTableRowMoveDown', 'arrow_drop_down', 'move-down', function(event){
+        button = PhraseTableButtonControl('PhraseTableRowMoveDown', 'expand_more', 'move-down', function(event){
             var it = row;
             var prev = row.nextSibling;
             if (! prev ) return;
@@ -189,7 +189,7 @@ PhraseTable.prototype = {
         button.className = controlClass;
         cell.appendChild(button);
 
-        button = PhraseTableButtonControl('PhraseTableRowMoveUp', 'arrow_drop_up', 'move-up', function(event){
+        button = PhraseTableButtonControl('PhraseTableRowMoveUp', 'expand_less', 'move-up', function(event){
             var it = row;
             var prev = row.previousSibling;
             if (! prev ) return;
@@ -201,7 +201,7 @@ PhraseTable.prototype = {
         button.className = controlClass;
         cell.appendChild(button);
 
-        button = PhraseTableButtonControl('PhraseTableRowMoveDown', 'arrow_drop_down', 'move-down', function(event){
+        button = PhraseTableButtonControl('PhraseTableRowMoveDown', 'expand_more', 'move-down', function(event){
             var it = row;
             var prev = row.nextSibling;
             if (! prev ) return;
