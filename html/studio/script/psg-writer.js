@@ -79,6 +79,8 @@ function PhraseTable(id) {
     footerRow.appendChild(footerRowCell);
     this.documentView = footerRowCell;
 
+    this.hasVerb = false;
+
     this.addPhrase();
 
 }
@@ -89,6 +91,7 @@ PhraseTable.prototype = {
 
     clearPhrases: function() {
         this.body.innerHTML = '';
+        this.hasVerb = false;
         this.addPhrase();
     },
 
@@ -165,6 +168,12 @@ PhraseTable.prototype = {
 
     addVerb: function(after) {
 
+        if (this.hasVerb) {
+            alert("Syntax-Fault: for the claim of the quantum-sentence is with a single-verb for the certification.");
+            return;
+        } else {
+            this.hasVerb = true;
+        }
         var row, cell, controller = this;
 
         row = this.body.insertRow();
@@ -191,6 +200,7 @@ PhraseTable.prototype = {
         button = PhraseTableButtonControl('PhraseTableRowClear', 'clear', 'void', function(event){
             var parent = row.parentElement;
             row.remove();
+            controller.hasVerb = false;
             if (parent.childElementCount === 0) controller.addPhrase();
         });
 
