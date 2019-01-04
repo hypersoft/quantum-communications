@@ -16,8 +16,27 @@
     <script src="script/psg-writer.js"></script>
 
     <script>
+        var tabView = new TabPanel();
+        var sentenceTab = tabView.addTab('sentenceComposerTab', ': SENTENCE-COMPOSER  ');
+        var docView = tabView.addTab('documentEditorTab', ': DOCUMENT-EDITOR  ')
+        var docEdit = document.createElement('textarea');
+        docEdit.className = 'text-editor';
+        docEdit.show = function(){docView.show(); docEdit.setHeight();};
+        docEdit.oninput = function () { this.value = this.value.toUpperCase(); };
+        docView.appendChild(docEdit);
+        sentenceTab.appendChild(new PhraseTable('phraseTable', docEdit).element);
+        docEdit.setHeight = function setHeight() {
+            var windowHeight = document.body.clientHeight;
+            docEdit.style.height = (windowHeight - docEdit.offsetTop) +'px';
+        };
+        $(window).resize(function () {
+            docEdit.setHeight();
+        });
         function bodyLoaded() {
-            document.body.appendChild(new PhraseTable('phraseTable').element);
+            document.body.appendChild(tabView.element);
+            //tabView.selectTab('sentenceComposerTab');
+            docEdit.show();
+            sentenceTab.show();
         }
     </script>
 </HEAD>

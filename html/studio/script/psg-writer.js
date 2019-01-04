@@ -1,9 +1,82 @@
+HTMLTextAreaElement.prototype.insertAtCaret = function (text) {
+    text = text || '';
+    if (document.selection) {
+      // IE
+      this.focus();
+      var sel = document.selection.createRange();
+      sel.text = text;
+    } else if (this.selectionStart || this.selectionStart === 0) {
+      // Others
+      var startPos = this.selectionStart;
+      var endPos = this.selectionEnd;
+      this.value = this.value.substring(0, startPos) +
+        text +
+        this.value.substring(endPos, this.value.length);
+      this.selectionStart = startPos + text.length;
+      this.selectionEnd = startPos + text.length;
+    } else {
+      this.value += text;
+    }
+  };
+  
+  function TabPanel(id) {
+    this.element = document.createElement('div');
+    this.element.controller = this;
+    this.element.className = 'tab-panel';
+    if (id) this.element.id = id;
+    this.buttonBar = document.createElement('div');
+    this.element.appendChild(this.buttonBar);
+    this.buttonBar.className = 'tab-panel-button-bar w3-bar w3-black';
+    this.contentPanel = document.createElement('div');
+    this.element.appendChild(this.contentPanel);
+    this.contentPanel.className = 'tab-panel-contents';
+}
 
+TabPanel.prototype = {
+
+    constructor: TabPanel,
+
+    addTab: function(id, label) {
+
+        var controller = this, doc = document.createElement('div');
+        doc.className = 'tab-panel-document';
+        doc.id = id;
+        this.contentPanel.appendChild(doc);
+        doc.show = function() {
+            controller.selectTab(id);
+        }
+        var button = document.createElement('button');
+        button.className = 'tab-panel-button w3-bar-item w3-button';
+        button.id = id+'Button';
+        button.innerText = label;
+
+        var controller = this;
+
+        button.onclick = function(event) {
+            controller.selectTab(id);
+        }
+
+        this.buttonBar.appendChild(button);
+
+        return doc;
+
+    },
+    selectTab: function(id) {
+        var panels = this.contentPanel.childNodes;
+        var panel;
+        for (i = 0; i < panels.length; i++) {
+            if (panels[i].id === id) panel = panels[i];
+            panels[i].style.display = "none";  
+        }
+        panel.style.display = "block";
+    }
+}
 
 // Creates an HTML Table manager for editing PSG phrases and sentences
-function PhraseTable(id) {
+function PhraseTable(id, textarea) {
 
     this.element = document.createElement('TABLE');
+    this.textarea = textarea;
 
     // link-back to this object for scripting access with the properties/prototype of this constructor
     this.element.controller = this;
@@ -63,11 +136,17 @@ function PhraseTable(id) {
     }));
 
     footerRowCell.appendChild(PhraseTableButtonControl('PhraseTableCompileClaimBackwards', 'chevron_left', 'view-claim-backwards', function(event){
-        controller.getBackwardSyntax();
+        controller.documentView.innerText = controller.getBackwardSyntax();
     }));
 
     footerRowCell.appendChild(PhraseTableButtonControl('PhraseTableCompileClaimForwards', 'chevron_right', 'view-claim-forwards', function(event){
-        controller.getForwardSyntax();
+        controller.documentView.innerText = controller.getForwardSyntax();
+    }));
+
+    footerRowCell.appendChild(PhraseTableButtonControl('PhraseTableWriteClaim', 'edit', 'finish-claim-writing', function(event){
+        controller.textarea.show();
+        controller.textarea.insertAtCaret(controller.getForwardSyntax());
+        controller.clearPhrases();
     }));
 
     footerRow = document.createElement('tr');
@@ -169,7 +248,7 @@ PhraseTable.prototype = {
     addVerb: function(after) {
 
         if (this.hasVerb) {
-            alert("Syntax-Fault: for the claim of the quantum-sentence is with a single-verb for the certification.");
+            alert(": Syntax-Fault\n\n for the claim of the quantum-communications-sentences are with a single-verb-usage within the sentence for the quantum-certification.");
             return;
         } else {
             this.hasVerb = true;
@@ -241,7 +320,7 @@ PhraseTable.prototype = {
                 data.push(control.value);
             }
         }
-        this.documentView.innerText = data.join(' ');
+        return data.join(' ');
     },
 
     getBackwardSyntax: function() {
@@ -254,7 +333,7 @@ PhraseTable.prototype = {
                 else data.push(control.value);
             }
         }
-        this.documentView.innerText = data.join(' ');
+        return data.join(' ');
     }
 }
 
