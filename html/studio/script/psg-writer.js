@@ -300,5 +300,6 @@ function PhraseTableFactEditor() {
     editor.typeClaim = 7;
     editor.className = 'phrase-fact-editor';
     editor.setAttribute('spellcheck', 'true');
+    editor.oninput = function(){this.value = this.value.toUpperCase();};
     return editor;
 }
