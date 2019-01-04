@@ -102,6 +102,7 @@ PhraseTable.prototype = {
         cell = document.createElement('td');
         cell.appendChild(control);
         row.appendChild(cell);
+        control.focus();
 
         row.controls.push(control = PhraseTableLodialSelector());
         cell = document.createElement('td');
@@ -112,6 +113,12 @@ PhraseTable.prototype = {
         cell = document.createElement('td');
         cell.appendChild(control);
         row.appendChild(cell);
+
+        control.onkeypress = function(event) {
+            if (event.keyCode == 13 || event.which == 13){
+                controller.addPhrase();
+            }
+        }
 
         cell = document.createElement('td');
         row.appendChild(cell);
