@@ -22,7 +22,6 @@
         var docEdit = document.createElement('textarea');
         docEdit.className = 'text-editor';
         docEdit.show = function(){docView.show(); docEdit.setHeight();};
-        docEdit.oninput = function () { this.value = this.value.toUpperCase(); };
         docView.appendChild(docEdit);
         sentenceTab.appendChild(new PhraseTable('phraseTable', docEdit).element);
         docEdit.setHeight = function setHeight() {

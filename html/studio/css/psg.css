@@ -21,7 +21,6 @@ select, input {
 .text-editor {
     width: 100%;
     height: 94.7%;
-    text-transform: uppercase;
     resize: none;
 }
 /* : fact-claim-spacing */
