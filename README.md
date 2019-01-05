@@ -1,4 +1,16 @@
-#### : CORRECT-SENTENCE-STRUCTURES-COMMUNICATION-PARSE-SYNTAX-GRAMMAR-PERFORMANCE-CLAIMS=(C.-S.-S.-C.-P.-S.-G.-P.)
+CORRECT-SENTENCE-STRUCTURES-COMMUNICATION-PARSE-SYNTAX-GRAMMAR-PERFORMANCE=(C.-S.-S.-C.-P.-S.-G.-P.)
+
+FOR THE READERS OF THE FICTION-LANGUAGE:
+
+> English is a fictional communications language, so is every other common language on Earth, in recorded history. David-Wynn: Miller's (that is first-name: David, middle-name: Wynn, family-name: Miller; with a possession claim) communications technology, so-called: CORRECT-SENTENCE-STRUCTURES-COMMUNICATION-PARSE-SYNTAX-GRAMMAR-PERFORMANCE, is the defacto: factual communications language of all speaking peoples of the Earth. Miller's language can also be translated to all other earth languages with unparalleled accuracy.
+>
+> The features of the fictional communications language are fact-modifications, lies, trickery, confusion and deceit. Most people don't know these facts, and are therefore trapped in a "fictional world" which only exists in their own mind, though they may share common thoughts, ideas and theories between themselves, this is no different than two people having the same knowledge of a "movie", "comic book", "theatrical play" and the like. Basically, what they believe to be true, does not make any facts of the real world: whatsoever.
+>
+> Thoughts, theories, and "ideas" are not of this world[they only exist in your mind], facts however are the only thing within our world which carry any material substance. Therefore facts are the only thing we can rely on for certainty, choice making, documentation of the laws and technological developments. [basically everything in our world which is not for entertainment purposes]
+>
+> This "repository" or database is compiled for the education of the people of the world to learn of Miller's technology. So that they may come out of childish "humanism" (from the word: hue+man = colorable man; meaning influenced by the color of an opinon) and enter the world of the homo-sapiens (meaning: wise-men: thinking and communicating with the facts, rather than opinions and beliefs).
+>
+> Without further ado, Miller and myself (Triston-Jerard: Taylor) welcome all of you to the world of Quantum Communications.
 
 FOR THIS CLOSURE-CLAIM OF A COMPOUND-WORD-BREVIATION-SPELLING-CERTIFICATION WITH THIS QUANTUM-COMMUNICATIONS-TECHNOLOGY IS OF A (COMPOUND-WORD-CLAIM, '='-SYMBOL AND FOLLOWING-COMPOUND-WORD-BREVIATION-CLAIM)-SEQUENCE WITH EACH SEQUENTIAL-WORD'S-FIRST-LETTER, FULL-STOP AND HYPHEN, THROUGH THE COMPLETE-COMPOUND-WORD-BREVIATION-SPELLING WITH THE VOIDING OF THE FINAL-BREVIATION-HYPHEN.
 
