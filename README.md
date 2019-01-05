@@ -8,7 +8,7 @@ FOR THE READERS OF THE FICTION-LANGUAGE:
 >
 > Thoughts, theories, and "ideas" are not of this world[they only exist in your mind], facts however are the only thing within our world which carry any material substance. Therefore facts are the only thing we can rely on for certainty, choice making, documentation of the laws and technological developments. [basically everything in our world which is not for entertainment purposes]
 >
-> This "repository" or database is compiled for the education of the people of the world to learn of Miller's technology. So that they may come out of childish "humanism" (from the word: hue+man = colorable man; meaning influenced by the color of an opinon) and enter the world of the homo-sapiens (meaning: wise-men: thinking and communicating with the facts, rather than opinions and beliefs).
+> This "repository" or database is compiled for the education of the people of the world to learn of Miller's technology. So that they may come out of childish "humanism" (from the word: hue+man = colorable man; meaning influenced by the color of an opinion) and enter the world of the homo-sapiens (meaning: wise-men: thinking and communicating with the facts, rather than opinions and beliefs).
 >
 > Without further ado, Miller and myself (Triston-Jerard: Taylor) welcome all of you to the world of Quantum Communications.
 
