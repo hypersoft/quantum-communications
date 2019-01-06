@@ -220,6 +220,19 @@ PhraseTable.prototype = {
         button.className = controlClass;
         cell.appendChild(button);
 
+        button = PhraseTableButtonControl('PhraseTableRowMute', 'mic', 'mute', function(event){
+            if (row.muting) {
+                row.muting = false;
+                this.icon.innerText = 'mic';
+            } else {
+                row.muting = true;
+                this.icon.innerText = 'mic_off';
+            }
+        });
+
+        button.className = controlClass;
+        cell.appendChild(button);
+
         button = PhraseTableButtonControl('PhraseTableRowMoveUp', 'expand_less', 'move-up', function(event){
             var it = row;
             var prev = row.previousSibling;
@@ -315,6 +328,7 @@ PhraseTable.prototype = {
         var data = [];
         for (var r in this.body.childNodes) {
             var row = this.body.childNodes[r];
+            if (row.muting) continue;
             for (var c in row.controls) {
                 var control = row.controls[c];
                 data.push(control.value);
@@ -327,6 +341,7 @@ PhraseTable.prototype = {
         var data = [];
         for (var r = this.body.childNodes.length - 1; r > -1; r--) {
             var row = this.body.childNodes[r];
+            if (row.muting) continue;
             for (var c in row.controls) {
                 var control = row.controls[c];
                 if (control.typeClaim === 5) data.push(PSG.positionCatalog[control.value]);
@@ -347,6 +362,7 @@ function PhraseTableButtonControl(id, materialIcon, title, action) {
     icon.className = 'material-icons';
     icon.innerText = materialIcon;
     div.appendChild(icon);
+    div.icon = icon;
     return div;
 }
 
