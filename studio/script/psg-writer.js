@@ -135,6 +135,10 @@ function PhraseTable(id, textarea) {
         controller.addPunctuation();
     }));
 
+    footerRowCell.appendChild(PhraseTableButtonControl('PhraseTablePlaceConjunction', 'ballot', 'phrase-conjunction', function (event){
+        controller.addConjunction();
+    }));
+
     footerRowCell.appendChild(PhraseTableButtonControl('PhraseTablePlaceVerb', 'all_inclusive', 'is/are', function (event){
         controller.addVerb();
     }));
@@ -343,12 +347,79 @@ PhraseTable.prototype = {
 
     },
 
+    addConjunction: function(after) {
+
+        /* this should be checking for a comma between phrases, as that's where this conjunction ends up in backwards mode; except: an actual list is optional. */
+        // if (this.hasVerb) {
+        //     alert(": Syntax-Fault\n\n for the claim of the quantum-communications-sentences are with a single-verb-usage within the sentence for the quantum-certification.");
+        //     return;
+        // } else {
+        //     this.hasVerb = true;
+        // }
+        var row, cell, controller = this;
+
+        row = this.body.insertRow();
+        row.controls = [PhraseTableConjunctionSelector()];
+        cell = document.createElement('td');
+        cell.appendChild(row.controls[0]);
+
+        row.controls[0].onkeypress = function(event) {
+            if (event.keyCode == 13 || event.which == 13){
+                if (event.shiftKey) controller.addVerb(row);
+                else controller.addPhrase(row);
+            }
+        }
+
+        cell.colSpan = 4;
+        row.appendChild(cell);
+        if (after) {
+            after.parentNode.insertBefore(row, after.nextSibling);
+        }
+        row.controls[0].focus();
+
+        var controlClass = 'phrase-table-row-control w3-round w3-btn w3-black'
+
+        button = PhraseTableButtonControl('PhraseTableRowClear', 'clear', 'void', function(event){
+            var parent = row.parentElement;
+            row.remove();
+            controller.hasVerb = false;
+            if (parent.childElementCount === 0) controller.addPhrase();
+        });
+
+        button.className = controlClass;
+        cell.appendChild(button);
+
+        button = PhraseTableButtonControl('PhraseTableRowMoveUp', 'expand_less', 'move-up', function(event){
+            var it = row;
+            var prev = row.previousSibling;
+            if (! prev ) return;
+            var parent = row.parentNode;
+            it.remove();
+            parent.insertBefore(row, prev);
+        });
+
+        button.className = controlClass;
+        cell.appendChild(button);
+
+        button = PhraseTableButtonControl('PhraseTableRowMoveDown', 'expand_more', 'move-down', function(event){
+            var it = row;
+            var prev = row.nextSibling;
+            if (! prev ) return;
+            var parent = row.parentNode;
+            prev.remove();
+            parent.insertBefore(prev, row);
+        });
+        button.className = controlClass;
+        cell.appendChild(button);
+
+    },
+
     addPunctuation: function(after) {
 
         var row, cell, controller = this;
 
         row = this.body.insertRow();
-        row.controls = [PhraseTablePunctuation()];
+        row.controls = [PhraseTablePunctuationSelector()];
         cell = document.createElement('td');
         cell.appendChild(row.controls[0]);
 
@@ -475,7 +546,7 @@ function PhraseTableVerbSelector() {
     return sel;
 }
 
-function PhraseTablePunctuation() {
+function PhraseTablePunctuationSelector() {
     var sel = document.createElement('select')
     sel.typeClaim = 10;
     var punctuation = [',', ';'];
@@ -483,6 +554,21 @@ function PhraseTablePunctuation() {
     for (var i = 0; i < punctuation.length; i++) {
         var opt = document.createElement('option');
         opt.className = 'phrase-punctuation-selector-option';
+        opt.text = punctuation[i];
+        opt.value = opt.text;
+        sel.appendChild(opt);
+    }
+    return sel;
+}
+
+function PhraseTableConjunctionSelector() {
+    var sel = document.createElement('select')
+    sel.typeClaim = 0;
+    var punctuation = ['AND', 'OR'];
+    sel.className = 'phrase-conjunction-selector';
+    for (var i = 0; i < punctuation.length; i++) {
+        var opt = document.createElement('option');
+        opt.className = 'phrase-conjunction-selector-option';
         opt.text = punctuation[i];
         opt.value = opt.text;
         sel.appendChild(opt);
