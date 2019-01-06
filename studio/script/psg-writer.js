@@ -117,7 +117,7 @@ function PhraseTable(id, textarea) {
     this.footer.appendChild(footerRow);
 
     // for the button functions reference
-    var controller = this;
+    var button, controller = this;
 
     var footerRowCell = document.createElement('td');
     footerRow.appendChild(footerRowCell);
@@ -131,9 +131,26 @@ function PhraseTable(id, textarea) {
         controller.addPhrase();
     }));
 
+    footerRowCell.appendChild(button = PhraseTableButtonControl('PhraseTableAddPunctuation', 'list', 'thought-ending', function(event) {
+        controller.addPunctuation();
+    }));
+
     footerRowCell.appendChild(PhraseTableButtonControl('PhraseTablePlaceVerb', 'all_inclusive', 'is/are', function (event){
         controller.addVerb();
     }));
+
+    footerRowCell.appendChild(button = PhraseTableButtonControl('PhraseTableEndingTypeToggle', 'add', 'sentence-type: statement/question', function(event) {
+        if (controller.question) {
+            controller.question = false;
+            this.icon.innerText = '.';
+        } else {
+            controller.question = true;
+            this.icon.innerText = '?';
+        }
+    }));
+    this.endingTypeToggle = button;
+    button.icon.className = 'text-icons';
+    button.icon.innerText = '.';
 
     footerRowCell.appendChild(PhraseTableButtonControl('PhraseTableCompileClaimBackwards', 'chevron_left', 'view-claim-backwards', function(event){
         controller.documentView.innerText = controller.getBackwardSyntax();
@@ -143,7 +160,7 @@ function PhraseTable(id, textarea) {
         controller.documentView.innerText = controller.getForwardSyntax();
     }));
 
-    footerRowCell.appendChild(PhraseTableButtonControl('PhraseTableWriteClaim', 'edit', 'finish-claim-writing', function(event){
+    footerRowCell.appendChild(PhraseTableButtonControl('PhraseTableWriteClaim', 'edit', 'write-claim', function(event){
         controller.textarea.show();
         controller.textarea.insertAtCaret(controller.getForwardSyntax());
         controller.clearPhrases();
@@ -171,6 +188,8 @@ PhraseTable.prototype = {
     clearPhrases: function() {
         this.body.innerHTML = '';
         this.hasVerb = false;
+        this.question = false;
+        this.endingTypeToggle.icon.innerText = '.';
         this.addPhrase();
     },
 
@@ -324,6 +343,66 @@ PhraseTable.prototype = {
 
     },
 
+    addPunctuation: function(after) {
+
+        var row, cell, controller = this;
+
+        row = this.body.insertRow();
+        row.controls = [PhraseTablePunctuation()];
+        cell = document.createElement('td');
+        cell.appendChild(row.controls[0]);
+
+        row.controls[0].onkeypress = function(event) {
+            if (event.keyCode == 13 || event.which == 13){
+                if (event.shiftKey) controller.addVerb(row);
+                else controller.addPhrase(row);
+            }
+        }
+
+        cell.colSpan = 4;
+        row.appendChild(cell);
+        if (after) {
+            after.parentNode.insertBefore(row, after.nextSibling);
+        }
+        row.controls[0].focus();
+
+        var controlClass = 'phrase-table-row-control w3-round w3-btn w3-black'
+
+        button = PhraseTableButtonControl('PhraseTableRowClear', 'clear', 'void', function(event){
+            var parent = row.parentElement;
+            row.remove();
+            controller.hasVerb = false;
+            if (parent.childElementCount === 0) controller.addPhrase();
+        });
+
+        button.className = controlClass;
+        cell.appendChild(button);
+
+        button = PhraseTableButtonControl('PhraseTableRowMoveUp', 'expand_less', 'move-up', function(event){
+            var it = row;
+            var prev = row.previousSibling;
+            if (! prev ) return;
+            var parent = row.parentNode;
+            it.remove();
+            parent.insertBefore(row, prev);
+        });
+
+        button.className = controlClass;
+        cell.appendChild(button);
+
+        button = PhraseTableButtonControl('PhraseTableRowMoveDown', 'expand_more', 'move-down', function(event){
+            var it = row;
+            var prev = row.nextSibling;
+            if (! prev ) return;
+            var parent = row.parentNode;
+            prev.remove();
+            parent.insertBefore(prev, row);
+        });
+        button.className = controlClass;
+        cell.appendChild(button);
+
+    },
+
     getForwardSyntax: function() {
         var data = [];
         for (var r in this.body.childNodes) {
@@ -331,10 +410,11 @@ PhraseTable.prototype = {
             if (row.muting) continue;
             for (var c in row.controls) {
                 var control = row.controls[c];
-                data.push(control.value);
+                if (control.typeClaim === 10) data.push(data.pop() + control.value);
+                else data.push(control.value);
             }
         }
-        return data.join(' ');
+        return data.join(' ') + ((this.question)?'?':'.');
     },
 
     getBackwardSyntax: function() {
@@ -345,10 +425,11 @@ PhraseTable.prototype = {
             for (var c in row.controls) {
                 var control = row.controls[c];
                 if (control.typeClaim === 5) data.push(PSG.positionCatalog[control.value]);
+                else if (control.typeClaim === 10) data.push(data.pop() + control.value);
                 else data.push(control.value);
             }
         }
-        return data.join(' ');
+        return data.join(' ') + ((this.question)?'?':'.');
     }
 }
 
@@ -388,6 +469,21 @@ function PhraseTableVerbSelector() {
         var opt = document.createElement('option');
         opt.className = 'phrase-verb-selector-option';
         opt.text = PSG.thinkingTerm[i];
+        opt.value = opt.text;
+        sel.appendChild(opt);
+    }
+    return sel;
+}
+
+function PhraseTablePunctuation() {
+    var sel = document.createElement('select')
+    sel.typeClaim = 10;
+    var punctuation = [',', ';'];
+    sel.className = 'phrase-punctuation-selector';
+    for (var i = 0; i < punctuation.length; i++) {
+        var opt = document.createElement('option');
+        opt.className = 'phrase-punctuation-selector-option';
+        opt.text = punctuation[i];
         opt.value = opt.text;
         sel.appendChild(opt);
     }
