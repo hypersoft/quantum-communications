@@ -5,7 +5,7 @@ var PSG = {
     grammarTerm: ["CONJUNCTION", "ADVERB", "VERB", "ADJECTIVE", "PRONOUN", "POSITON", "LODIAL", "FACT", "PAST-TIME-FICTION", "FUTURE-TIME-FICTION"],
     conjunctionTerm: ["AND", "OR", "&:", "AND:", "OR:"],
     positionTerm: [],
-    lodialTerm: ["A", "AN", "ANY", "EACH", "EVERY", "THE", "THIS", "THESE", "THOSE", "THEIR", "HIS", "HER", "MY", "YOUR", "OUR"],
+    lodialTerm: ["A", "AN", "ANY", "EACH", "EITHER", "EVERY", "THE", "THIS", "THESE", "THOSE", "THEIR", "HIS", "HER", "MY", "YOUR", "OUR"],
     thinkingTerm: ["IS", "ARE"],
     positionCatalog: {},
     createPosition: function(a, b){
