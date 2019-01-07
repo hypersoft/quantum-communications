@@ -157,7 +157,11 @@ function PhraseTable(id, textarea) {
     button.icon.innerText = '.';
 
     footerRowCell.appendChild(PhraseTableButtonControl('PhraseTableCompileClaimBackwards', 'chevron_left', 'view-claim-backwards', function(event){
-        controller.documentView.innerText = controller.getBackwardSyntax();
+        controller.documentView.innerText = controller.getMasterBackwardSyntax();
+    }));
+
+    footerRowCell.appendChild(PhraseTableButtonControl('PhraseTableCompileClaimBackwards', 'swap_calls', 'check-claim-backwards', function(event){
+        controller.documentView.innerText = controller.getSimpleBackwardSyntax();
     }));
 
     footerRowCell.appendChild(PhraseTableButtonControl('PhraseTableCompileClaimForwards', 'chevron_right', 'view-claim-forwards', function(event){
@@ -202,6 +206,7 @@ PhraseTable.prototype = {
         var row, cell, button, control, controller = this;
 
         row = this.body.insertRow();
+        row.isPhrase = true;
         row.controls = [];
         row.controls.push(control = PhraseTablePositionSelector());
         cell = document.createElement('td');
@@ -292,6 +297,7 @@ PhraseTable.prototype = {
         var row, cell, controller = this;
 
         row = this.body.insertRow();
+        row.isVerb = true;
         row.controls = [PhraseTableVerbSelector()];
         cell = document.createElement('td');
         cell.appendChild(row.controls[0]);
@@ -359,6 +365,7 @@ PhraseTable.prototype = {
         var row, cell, controller = this;
 
         row = this.body.insertRow();
+        row.isConjunction = true;
         row.controls = [PhraseTableConjunctionSelector()];
         cell = document.createElement('td');
         cell.appendChild(row.controls[0]);
@@ -419,6 +426,7 @@ PhraseTable.prototype = {
         var row, cell, controller = this;
 
         row = this.body.insertRow();
+        row.isPunctuation = true;
         row.controls = [PhraseTablePunctuationSelector()];
         cell = document.createElement('td');
         cell.appendChild(row.controls[0]);
@@ -488,7 +496,34 @@ PhraseTable.prototype = {
         return data.join(' ') + ((this.question)?'?':'.');
     },
 
-    getBackwardSyntax: function() {
+    getSimpleBackwardSyntax: function() {
+        var data = [], firstRow, lastRow
+        for (var r in this.body.childNodes) {
+            var row = this.body.childNodes[r];
+            if (r == 0 && row.isPhrase) { firstRow = row;}
+            else if (r == (this.body.childNodes.length - 1) && firstRow.isPhrase && row.isPhrase) {
+                lastRow = row;
+                data.shift(); data.shift(); data.shift(); // we walked through the loop earlier, 
+                                                          // so do clean up work now, because 2nd test is ok
+                data.unshift(lastRow.controls[2].value)
+                data.unshift(lastRow.controls[1].value)
+                data.unshift(firstRow.controls[0].value)
+                data.push(lastRow.controls[0].value)
+                data.push(firstRow.controls[1].value)
+                data.push(firstRow.controls[2].value)
+                continue;
+            }
+            if (row.muting) continue;
+            for (var c in row.controls) {
+                var control = row.controls[c];
+                if (control.typeClaim === 10) data.push(data.pop() + control.value);
+                else data.push(control.value);
+            }
+        }
+        return data.join(' ') + ((this.question)?'?':'.');
+    },
+
+    getMasterBackwardSyntax: function() {
         var data = [];
         for (var r = this.body.childNodes.length - 1; r > -1; r--) {
             var row = this.body.childNodes[r];
