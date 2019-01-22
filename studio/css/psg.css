@@ -28,8 +28,7 @@ select, input {
     width: 100%;
 }
 
-/* : fact-claim-spacing */
-.phrase-table-body tr td:nth-child(4) {
+.phrase-table-body tr td {
     white-space: nowrap;
 }
 
