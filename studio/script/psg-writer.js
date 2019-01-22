@@ -309,12 +309,16 @@ PhraseTable.prototype = {
             }
         }
 
-        cell.colSpan = 4;
+        cell.colSpan = 3;
         row.appendChild(cell);
         if (after) {
             after.parentNode.insertBefore(row, after.nextSibling);
         }
         row.controls[0].focus();
+
+        cell = document.createElement('td');
+
+        row.appendChild(cell);
 
         var controlClass = 'phrase-table-row-control w3-round w3-btn w3-black'
 
@@ -377,12 +381,15 @@ PhraseTable.prototype = {
             }
         }
 
-        cell.colSpan = 4;
+        cell.colSpan = 3;
         row.appendChild(cell);
         if (after) {
             after.parentNode.insertBefore(row, after.nextSibling);
         }
         row.controls[0].focus();
+
+        cell = document.createElement('td');
+        row.appendChild(cell);
 
         var controlClass = 'phrase-table-row-control w3-round w3-btn w3-black'
 
@@ -438,13 +445,16 @@ PhraseTable.prototype = {
             }
         }
 
-        cell.colSpan = 4;
+        cell.colSpan = 3;
         row.appendChild(cell);
         if (after) {
             after.parentNode.insertBefore(row, after.nextSibling);
         }
         row.controls[0].focus();
 
+        cell = document.createElement('td');
+        row.appendChild(cell);
+        
         var controlClass = 'phrase-table-row-control w3-round w3-btn w3-black'
 
         button = PhraseTableButtonControl('PhraseTableRowClear', 'clear', 'void', function(event){
