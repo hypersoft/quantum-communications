@@ -12,8 +12,8 @@ Word.prototype = {
     constructor: Word,
     dataTag: null, /* for the "unique data identity" */
     spelling: null, /* for the spelling of this word */
-    parts: [], /* for the breakdown of the word-spelling */
-    meanings: [],  /* for the listing of the multiple-meanings with the data-tags */
+    part: [], /* for the breakdown of the word-spelling */
+    meaning: [],  /* for the listing of the multiple-meanings with the data-tags */
 
     /* : COMMENTARY:
         unlike most dictionaries, we recognize that very little data is actually
@@ -34,7 +34,7 @@ Word.Meaning.prototype = {
     constructor: Word.Meaning,
     dataTag: null, /* for the "unique data identity" */
     spelling: null, /* for the data-tag of the spelling */
-    similar: [], /* for the listing of the similar-words of the meaning by the spellings */
+    synonym: [], /* for the listing of the similar-words of the meaning by the spellings */
     fieldOfStudy: null, /* for the context-specification */
     grammarClass: null, /* for the grammar-class of the meaning */
     language: null, /* for the language of the meaning */
